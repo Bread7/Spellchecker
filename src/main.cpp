@@ -10,10 +10,20 @@ using namespace std;
 //global declaration(s)
 Trie *dict = new Trie();
 
+//changes case to lower case
 void changeCase(string word){
     transform(word.begin(),word.end(),word.begin(), ::tolower);
 }
+void changeCase(char c){
+    string str;
+    str = c;
+    transform(str.begin(),str.end(),str.begin(), ::tolower);
+    for (int i = 0; i < str.length(); i++){
+        c = str[i];
+    }
+}
 
+//Function to append word into trie
 void addWord(Trie *dict){
     string word;
 
@@ -29,6 +39,8 @@ void addWord(Trie *dict){
 
     cout << "Word added" << endl;
 }
+
+//checks for word in trie
 void spellCheckWord(Trie *dict){
     string word;
 
@@ -46,6 +58,7 @@ void spellCheckWord(Trie *dict){
     }
 }
 
+//Insert a file to see for incorrect words
 bool spellCheckFile(Trie *dict){
     string path;
     ifstream dictionary;
@@ -73,6 +86,7 @@ bool spellCheckFile(Trie *dict){
     return true;
 }
 
+//save words from trie into user dictionary
 bool saveDict(Trie *dict){
     ofstream dictionary;
     dictionary.open("/home/bread/ZJ/School/DSA/Practical/Spellchecker/data/UserDictionary.txt");
@@ -94,13 +108,15 @@ bool saveDict(Trie *dict){
     return true;
 }
 
+//Search for all words that starts with user input char
 void prefixSearch(Trie *dict){
     char c;
 
     cout << "Enter a letter to display all words starting with the given letter: ";
     cin >> c;
     cin.clear();
-
+    
+    changeCase(c);
     vector<string> words = dict->getwords(c);
 
     for (int i = 0; i < words.size(); i++){
@@ -108,12 +124,15 @@ void prefixSearch(Trie *dict){
     }
 }
 
+//Error checking of a given word
 void errorCheck(Trie *dict){
     string word;
 
     cout << "This checks for transposition and substitution errors." << endl;
     cout << "Enter a word: "; 
+    changeCase(word);
     cin >> word;
+
     cin.clear();
 
     if (dict->find(word) == true){
@@ -138,6 +157,7 @@ void errorCheck(Trie *dict){
     }
 }
 
+//Loads the dictionary into trie and user dictionary
 bool loadDict(Trie *dict){
     ifstream dictionary;
     ofstream userdictionary;
@@ -151,6 +171,7 @@ bool loadDict(Trie *dict){
     while (!dictionary.eof()){
         string word;
         getline(dictionary, word);
+        changeCase(word);
         dict->add(word);
         userdictionary << word << endl;
     }
@@ -173,6 +194,7 @@ void menu(){
     cout << "Please enter an option: " << endl;
 }
 
+//Calls respective functions based on user input
 bool call(int option){
     if(option == 1){
         spellCheckWord(dict);
@@ -208,16 +230,19 @@ bool call(int option){
     }
 }
 
+//Checks that user input is a number and not a alphabet
 bool inputValidator(string option){
     for (int i = 0; i < option.length(); i++){
         char c = option[i];
-        if (isalpha(c)){
+        if (!isdigit(c)){
+            
             return false;
         }
     }
     return true;
 }
 
+//start of program
 int main(){
     string option;
 
