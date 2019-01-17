@@ -11,10 +11,9 @@ struct Node{
     vector<Node>    *children;    
 };
 
-struct Result{
-    bool            found;
+struct Flag{
+    bool            transError;
     bool            subError;
-    bool            addError;
 };
 
 class Trie{
@@ -32,7 +31,7 @@ class Trie{
 
         vector<string> getwords(char prefix);
 
-        Result findError(string word);
+        Flag errorChecker(string word);
 };
 
 #endif
