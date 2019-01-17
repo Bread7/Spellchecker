@@ -1,24 +1,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "dict.h"
 
 #define end_char '\1'
-int charcounter = -1;
 
 using namespace std;
-
-//a template array of all char
-char charBruteForce(){
-    string letters = "abcdefghijklmnopqrstuvwxyz()-";
-    int counter = charcounter;
-    charcounter += 1;
-    if (charcounter == 28){
-        charcounter = -1;
-    }
-    return letters[counter];
-}
 
 Trie::Trie(){
     root = new vector<Node>(); 
@@ -93,6 +82,19 @@ vector<string> togetwords(vector<Node> *children, char prefix){
     for (int i = 0; i < children->size(); i++){
         Node child = (*children)[i];
 
+        // Skip the endings
+        //Prevent words from other prefix to be displayed
+        if (prefix ==  end_char) {
+            if (child.letter == end_char) {
+            continue;
+            }
+        } 
+        else {
+            if (child.letter != prefix) {
+            continue;
+            }
+        }
+
         for (int j = 0; j < child.children->size(); j++) {
             if ((*child.children)[j].letter == end_char) {
                 string word = "";
@@ -128,6 +130,57 @@ vector<string> Trie::getwords(){
     return getwords(end_char);
 }
 
+
+// testing
+int getNumOfChar(char c){
+    string letters = " -()abcdefghijklmnopqrstuvwxyz";
+    for (int i = 0; i < letters.length(); i++){
+        if (letters[i] == c){
+            return i;
+        }
+    }
+}
+
+void sort(string &word){
+    for (int i = 0; i < word.length(); i++){
+        if (word.length() - 1 == i){
+            break;
+        }
+        if (getNumOfChar(word[i]) > getNumOfChar(word[i + 1])){
+            swap(word[i], word[i + 1]);
+        }
+    }
+}
+
+Flag ErrorChecking(vector<Node> *children, string word){
+    Flag flag;
+
+    if (word.empty()){
+        flag.subError = false;
+        flag.transError = false;   
+        return flag; 
+    }
+    
+    sort(word);
+    
+    do
+    {    
+        if (toFind(children, word) == true){
+            flag.transError = true;
+            flag.subError = false;
+            return flag;
+        }
+    }while(next_permutation(word.begin(),word.end()));
+    flag.subError = true;
+    flag.transError = false;
+    return flag;
+}
+
+Flag Trie::errorChecker(string word){
+    return ErrorChecking(root, word);
+}
+
+/*
 Result findingError(vector<Node> *children, string word, bool subError){
     if (word.empty()) {
         Result result;
@@ -183,4 +236,4 @@ Result Trie::findError(string word){
     }
 
   return result;
-}   
+}   */
