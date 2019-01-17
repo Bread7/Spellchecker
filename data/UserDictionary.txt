@@ -5581,8 +5581,8 @@ aztreonam
 azure
 azygous
 azymia
-b
 bte
+b
 b-girl
 b-horizon
 b-meson
@@ -15281,8 +15281,8 @@ cpayment
 cpoetry
 cproperty
 cquadroon
-cr
 crme
+cr
 crab
 crabbe
 crabbed
@@ -23051,8 +23051,8 @@ ezochin/
 ezokin/gr
 fte
 fted
-fa
 faon
+fa
 faber
 fabian
 fabiana
@@ -23239,6 +23239,7 @@ falln
 fallout
 fallow
 falls
+FALSE
 falsehearted
 falsehood
 falsely
@@ -25715,7 +25716,6 @@ fuzzle
 fuzzy
 fv
 fylfot
-FALSE
 g
 g-man
 g-string
@@ -27125,8 +27125,8 @@ gowned
 gownsman
 goy
 gpa
-gr
 grce
+gr
 gr/
 gr/anerythmon
 gr/ariston
@@ -38617,8 +38617,8 @@ menopon
 menorrhagia
 menorrhea
 menotyphla
-mens
 mens
+mens
 mensal
 mensch
 menses
@@ -48704,8 +48704,8 @@ priggish
 priggishly
 priggishness
 priggism
-prim
 prim
+prim
 prima
 primacy
 primaries
@@ -60662,10 +60662,10 @@ systole
 syzygium
 syzygy
 szechwan
-t
 ttonnement
 ttonner
 ttons
+t
 t-bar
 t-junction
 t-man
@@ -61732,8 +61732,8 @@ textured
 textures
 tf
 tg
-th
 thtre
+th
 thai
 thailand
 thais
@@ -61780,8 +61780,8 @@ thaumaturgist
 thaumaturgy
 thaw
 thawed
-the
 thetre
+the
 thea
 theaceae
 theanthropism
@@ -63768,6 +63768,7 @@ truculent
 truculently
 trudge
 truditur
+TRUE
 true(a)
 true-blue
 true-false
@@ -64243,7 +64244,6 @@ tyrothricin
 tyto
 tytonidae
 tzar
-TRUE
 u
 u-turn
 uakari
@@ -69901,4 +69901,4 @@ zymase
 zymosis
 zymotic
 zymurgy
-AIDS
+
