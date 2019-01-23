@@ -1,3 +1,4 @@
+//#include "stdafx.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -10,16 +11,23 @@ using namespace std;
 //global declaration(s)
 Trie *dict = new Trie();
 
-//changes case to lower case
-void changeCase(string word){
-    transform(word.begin(),word.end(),word.begin(), ::tolower);
-}
-void changeCase(char c){
-    string str;
-    str = c;
-    transform(str.begin(),str.end(),str.begin(), ::tolower);
-    for (int i = 0; i < str.length(); i++){
-        c = str[i];
+
+
+//changes case to lower case/upper case based on user input
+char changeCase(char c){
+    char caseChanged;
+
+    if (islower(c)){
+        caseChanged = toupper(c);
+        cout << caseChanged << endl;
+        cout << c << endl;
+        return caseChanged;
+    }
+    if (isupper(c)){
+        caseChanged = tolower(c);
+        cout << caseChanged << endl;
+        cout << c << endl;
+        return caseChanged;
     }
 }
 
@@ -28,10 +36,9 @@ void addWord(Trie *dict){
     string word;
 
     cout << "Enter a word: ";
-    cin >> word;
+    cin.ignore();
+    getline(cin, word);
     cin.clear();
-
-    changeCase(word);
 
     dict->add(word);
 
@@ -45,11 +52,11 @@ void spellCheckWord(Trie *dict){
     string word;
 
     cout << "Enter word to check: ";
-    cin >> word;
+    cin.ignore();
+    getline(cin, word);
     cin.clear();
     cout << endl;
 
-    changeCase(word);
     if (dict->find(word) == true){
         cout << "Word is spelt correctly." << endl;
     }
@@ -60,13 +67,25 @@ void spellCheckWord(Trie *dict){
 
 //Insert a file to see for incorrect words
 bool spellCheckFile(Trie *dict){
-    string path;
+    string path, extChecker;
     ifstream dictionary;
+
+    cout << "We only accept .txt filetypes" << endl;
+
     cout << "Example: /home/bread/ZJ/School/DSA/Practical/Spellchecker/data/RandomWords100.txt" << endl;
     cout << "Enter a path: ";
-    cin >> path;
+    cin.ignore();
+    getline(cin, path);
     cin.clear();
     cout << endl;
+
+    //check for file extension
+    extChecker = path.substr(path.length() - 4);
+    if (extChecker != ".txt"){
+        cout << "Do not try. \".txt\" extensions only" << endl;
+        return false;
+    }
+
     dictionary.open(path);
 
     if (!dictionary.is_open()){
@@ -76,7 +95,9 @@ bool spellCheckFile(Trie *dict){
     while (!dictionary.eof()){
         string word;
         getline(dictionary, word);
-        changeCase(word);
+        if (word.empty()){
+            continue;
+        }
         if (dict->find(word) == false){
             cout << word << " is spelt incorrectly." << endl;
         }
@@ -110,13 +131,29 @@ bool saveDict(Trie *dict){
 
 //Search for all words that starts with user input char
 void prefixSearch(Trie *dict){
-    char c;
+    string str;
+    char c, cOpp;
 
     cout << "Enter a letter to display all words starting with the given letter: ";
-    cin >> c;
+    cin.ignore();
+    getline(cin, str);
+    cout << str << endl;
+    if (str.length() > 1){
+        cout << "We only accept a character. Please adhere to the rules." << endl;
+        return;
+    }
+    c = str[0];
     cin.clear();
-    
-    changeCase(c);
+
+    //check if prefix is alphabet
+    //if prefix is not alphabet, do not attempt to change its case
+    if (isalpha(c)){
+        cOpp = changeCase(c);
+        vector<string> words2 = dict->getwords(cOpp);
+        for (int i = 0; i < words2.size(); i++){
+            cout << words2[i] << endl;
+        }
+    }
     vector<string> words = dict->getwords(c);
 
     for (int i = 0; i < words.size(); i++){
@@ -130,9 +167,8 @@ void errorCheck(Trie *dict){
 
     cout << "This checks for transposition and substitution errors." << endl;
     cout << "Enter a word: "; 
-    changeCase(word);
-    cin >> word;
-
+    cin.ignore();
+    getline(cin, word);
     cin.clear();
 
     if (dict->find(word) == true){
@@ -171,7 +207,6 @@ bool loadDict(Trie *dict){
     while (!dictionary.eof()){
         string word;
         getline(dictionary, word);
-        changeCase(word);
         dict->add(word);
         userdictionary << word << endl;
     }
