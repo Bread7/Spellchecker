@@ -113,11 +113,12 @@ bool saveDict(Trie *dict){
     dictionary.open("/home/bread/ZJ/School/DSA/Practical/Spellchecker/data/UserDictionary.txt");
 
     if (!dictionary.is_open()){
+        cout << "error" << endl;
         return false;
     }
 
     vector<string> words = dict->getwords();
-
+    
     for (int i = 0; i < words.size(); i++) {
         dictionary << words[i];
         if (i != words.size() - 1) {

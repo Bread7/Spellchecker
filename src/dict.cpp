@@ -53,12 +53,6 @@ bool wordValidate(string word){
     }
     return true;
 }
-bool charValidate(char c){
-    if(!isalpha(c)){
-        return false;
-    }
-    return true;
-}
 
 //a find function to loop thorugh the Trie and check with each char
 //if all char of string is checked till is empty, that means word exists
@@ -142,9 +136,6 @@ vector<string> togetwords(vector<Node> *children, char prefix){
 //Append words into vector of data type string
 vector<string> Trie::getwords(char prefix){
     vector<string> words;
-    if (!charValidate(prefix)){
-        return words;
-    }
     
 
     words = togetwords(root, prefix);
