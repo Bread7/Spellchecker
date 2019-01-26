@@ -46,14 +46,6 @@ void Trie::add(string word){
     insert(root, word + end_char);
 }
 
-//ensure word is not empty
-bool wordValidate(string word){
-    if(word.empty()){
-        return false;
-    }
-    return true;
-}
-
 //a find function to loop thorugh the Trie and check with each char
 //if all char of string is checked till is empty, that means word exists
 //within Trie
@@ -76,7 +68,7 @@ bool toFind(vector<Node> *children, string word){
 
 //part of Trie class to find if word exist
 bool Trie::find(string word){
-    if (!wordValidate(word)){
+    if (word.empty()){
         return false;
     }
     return toFind(root, word + end_char);
