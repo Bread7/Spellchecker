@@ -79,6 +79,11 @@ bool spellCheckFile(Trie *dict){
     cin.clear();
     cout << endl;
 
+    //check for null input
+    if (path.empty()){
+        cout << "No path given. Try again." << endl;
+        return false;
+    }
     //check for file extension
     extChecker = path.substr(path.length() - 4);
     if (extChecker != ".txt"){
